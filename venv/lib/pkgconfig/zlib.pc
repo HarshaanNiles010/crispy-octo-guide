@@ -1,0 +1,13 @@
+prefix=/Users/harshaanbabra/Desktop/Code/seriesPrediction/venv
+exec_prefix=/Users/harshaanbabra/Desktop/Code/seriesPrediction/venv
+libdir=/Users/harshaanbabra/Desktop/Code/seriesPrediction/venv/lib
+sharedlibdir=/Users/harshaanbabra/Desktop/Code/seriesPrediction/venv/lib
+includedir=/Users/harshaanbabra/Desktop/Code/seriesPrediction/venv/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}
