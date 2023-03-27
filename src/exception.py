@@ -1,5 +1,5 @@
 import sys
-
+# Take the error message info and convert it into a line by line detail output in a log
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
     file_name = exc_tb.tb_frame.f_code.co_filename
