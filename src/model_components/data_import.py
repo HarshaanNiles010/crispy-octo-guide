@@ -33,7 +33,7 @@ class DataImport():
         logging.info('Initializing data import')
         try:
             ticker = "GOOGL"
-            start_date = '2001-01-01'
+            start_date = '2022-01-01'
             end_date = '2023-01-01'
             logging.info(f"The ticker used is {ticker}, the start date is: {start_date} and the end date is: {end_date}")
             data = yf.download(ticker,start_date,end_date)
