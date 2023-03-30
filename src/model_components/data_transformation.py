@@ -3,7 +3,12 @@ import sys
 import pandas as pd
 from src.exception import CustomException
 from src.logger import logging
+from utils import save_object
 from dataclasses import dataclass
+from sklearn.impute import SimpleImputer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler,OneHotEncoder
+from sklearn.compose import ColumnTransformer
 
 @dataclass
 class DataTransformationConfig():
