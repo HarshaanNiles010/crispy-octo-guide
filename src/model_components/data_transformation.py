@@ -18,7 +18,29 @@ class DataTransformation():
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
     
-    def initiate_data_transformation():
+    def get_data_transformer_object(self):
+        logging.info("Looking for the prediction feilds")
+        try:
+            numerical_columns = [
+                "Date",
+                "Open",
+                "High",
+                "Low",
+                "Close",
+                "Adj Close",
+                "Volume"
+            ]
+            num_pipeline = Pipeline(
+                steps=[
+                ("imputer",SimpleImputer(strategy="median")),
+                ("scalar",StandardScaler())
+                ]
+            )
+        except Exception as e:
+            raise CustomException(e,sys)
+    
+    
+    def initiate_data_transformation(self):
         logging.info("Initiating data transformation")
         try:
             pass
