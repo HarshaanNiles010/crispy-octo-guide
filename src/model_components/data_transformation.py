@@ -30,12 +30,20 @@ class DataTransformation():
                 "Adj Close",
                 "Volume"
             ]
+            logging.info("Starting Numerical Pipeline")
             num_pipeline = Pipeline(
                 steps=[
                 ("imputer",SimpleImputer(strategy="median")),
                 ("scalar",StandardScaler())
                 ]
             )
+            logging.info("Numerical cloumns completed")
+            preprocessor = ColumnTransformer(
+                [
+                    ("num_pipeline",num_pipeline,numerical_columns)
+                ]
+            )
+            return preprocessor
         except Exception as e:
             raise CustomException(e,sys)
     
