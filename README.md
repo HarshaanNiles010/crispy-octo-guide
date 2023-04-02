@@ -1,5 +1,7 @@
 # crispy-octo-guide
 The libraries used in this project:
+
+
 pandas - for playing the numbers game
 numpy -  again playing the numbers game
 seaborn - for plotting statistical data
