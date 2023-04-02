@@ -119,16 +119,11 @@ class DataTransformation():
             logging.info("Obtaining preprocessing object")
             preprocessing_obj = self.get_data_transformer_object()
             logging.info("Preprocessor object obtained")
-            
             target_column_name="Close"
-            
             input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
-            #input_feature_train_df.to_csv(self.data_transformation_config.temp_train_result_path)
             target_feature_train_df = train_df[target_column_name]
-            #target_feature_train_df.to_csv(self.data_transformation_config.temp_train_target_result_path)
             input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df = test_df[target_column_name]
-            
             logging.info("Applying preprocessing object on training dataframe and testing dataframe.")
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
