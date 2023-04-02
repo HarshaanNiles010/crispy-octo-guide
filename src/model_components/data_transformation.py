@@ -61,13 +61,17 @@ class DataTransformation():
             logging.info("Preprocessor object obtained")
             target_column_name="Close"
             logging.info(f"The target column chosen is: {target_column_name}")
+            logging.info("Creating the input feature train data frame and target feature train data frame")
             input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df = train_df[target_column_name]
+            logging.info("input feature train and target feature data frame created successfully")
+            logging.info("Creating the input feature test data frame and target feature test data frame")
             input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df = test_df[target_column_name]
             logging.info("Applying preprocessing object on training dataframe and testing dataframe.")
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
+            logging.info("input feature test and test feature data frame created successfully")
             train_arr = np.c_[
                 input_feature_train_arr, np.array(target_feature_train_df)
             ]
