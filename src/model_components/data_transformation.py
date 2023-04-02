@@ -13,6 +13,10 @@ from sklearn.compose import ColumnTransformer
 @dataclass
 class DataTransformationConfig():
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
+    temp_train_result_path = os.path.join('artifacts','trainResult.csv')
+    temp_train_target_result_path = os.path.join('artifacts','trainTargetResult.csv')
+    temp_test_result_path = os.path.join('artifacts','testResult.csv')
+    temp_test_target_result_path = os.path.join('artifacts','testTargetResult.csv')
 
 class DataTransformation():
     def __init__(self):
@@ -22,7 +26,6 @@ class DataTransformation():
         logging.info("Looking for the prediction feilds")
         try:
             numerical_columns = [
-                "Date",
                 "Open",
                 "High",
                 "Low",
@@ -114,12 +117,18 @@ class DataTransformation():
             test_df = pd.read_csv(test_path)
             logging.info("Read train and test data completed")
             logging.info("Obtaining preprocessing object")
-            preprocessing_obj=self.get_data_transformer_object()
+            preprocessing_obj = self.get_data_transformer_object()
+            logging.info("Preprocessor object obtained")
+            
             target_column_name="Close"
-            input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
-            target_feature_train_df=train_df[target_column_name]
-            input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
-            target_feature_test_df=test_df[target_column_name]
+            
+            input_feature_train_df = train_df.drop(columns=[target_column_name],axis=1)
+            #input_feature_train_df.to_csv(self.data_transformation_config.temp_train_result_path)
+            target_feature_train_df = train_df[target_column_name]
+            #target_feature_train_df.to_csv(self.data_transformation_config.temp_train_target_result_path)
+            input_feature_test_df = test_df.drop(columns=[target_column_name],axis=1)
+            target_feature_test_df = test_df[target_column_name]
+            
             logging.info("Applying preprocessing object on training dataframe and testing dataframe.")
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
