@@ -107,7 +107,8 @@ class DataTransformation():
             x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1],1))
             return(
                 x_train,
-                y_train
+                y_train,
+                self.data_transformation_config.preprocessor_obj_file_path
             )
         except Exception as e:
             raise CustomException(e,sys)
