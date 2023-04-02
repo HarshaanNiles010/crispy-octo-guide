@@ -8,9 +8,8 @@ from src.utils import save_object
 from dataclasses import dataclass
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler,OneHotEncoder
+from sklearn.preprocessing import StandardScaler,OneHotEncoder,MinMaxScaler
 from sklearn.compose import ColumnTransformer
-
 @dataclass
 class DataTransformationConfig():
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
@@ -51,7 +50,7 @@ class DataTransformation():
     def initiate_data_transformation(self,train_path:str,test_path:str):
         logging.info("Initiating data transformation")
         try:
-            logging.info("Reading train and test data")
+            """ logging.info("Reading train and test data")
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
             logging.info("Read train and test data completed")
@@ -91,6 +90,24 @@ class DataTransformation():
                 train_arr,
                 test_arr,
                 self.data_transformation_config.preprocessor_obj_file_path,
+            ) """
+            logging.info("Reading train and test data")
+            train_df = pd.read_csv(train_path)
+            test_df = pd.read_csv(test_path)
+            logging.info("Read train and test data completed")
+            new_scalar = MinMaxScaler(feature_range=(0,1))
+            scaled_data = new_scalar.fit_transform(train_df['Close'].values.reshape(-1,1))
+            prediction_days = 60
+            x_train = []
+            y_train = []
+            for i in range(prediction_days,len(scaled_data)):
+                x_train.append(scaled_data[i-prediction_days:i,0])
+                y_train.append(scaled_data[i,0])
+            x_train, y_train = np.array(x_train), np.array(y_train)
+            x_train = np.reshape(x_train,(x_train.shape[0],x_train.shape[1],1))
+            return(
+                x_train,
+                y_train
             )
         except Exception as e:
             raise CustomException(e,sys)
