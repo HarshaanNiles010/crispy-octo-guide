@@ -37,8 +37,8 @@ class DataImport():
             end_date = '2023-01-01'
             logging.info(f"The ticker used is {ticker}, the start date is: {start_date} and the end date is: {end_date}")
             data = yf.download(ticker,start_date,end_date)
-            data["Date"] = data.index
-            data = data[["Date", "Open", "High","Low", "Close", "Adj Close", "Volume"]]
+            #data["Date"] = data.index
+            data = data[["Open", "High","Low", "Close", "Adj Close", "Volume"]]
             data.reset_index(drop=True, inplace=True)
             os.makedirs(os.path.dirname(self.data_import_config.output_data_path),exist_ok=True)
             data.to_csv(self.data_import_config.output_data_path,index=False,header=True)
